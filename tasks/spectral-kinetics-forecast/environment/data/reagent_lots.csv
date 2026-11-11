@@ -1,0 +1,6 @@
+lot,material,form,formula_weight_g_mol,assay_pct,water_KF_pct_w_w,received
+A-0301,A,anhydrous,120.15,99.6,0.03,2026-08-28
+B-0412,B,anhydrous,150.15,99.4,0.05,2026-08-30
+B-0519,B,monohydrate,168.17,99.1,10.71,2026-09-17
+C-77,catalyst,solid,412.50,98.0,,2026-08-15
+S-2208,solvent,liquid,,99.9,0.040,2026-08-20

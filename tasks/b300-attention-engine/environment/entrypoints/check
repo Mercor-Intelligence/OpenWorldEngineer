@@ -1,0 +1,2 @@
+#!/bin/sh
+exec python3 -B -m fa4_b300.cli check "$@"
