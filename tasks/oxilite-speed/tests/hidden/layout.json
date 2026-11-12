@@ -1,0 +1,18 @@
+{
+ "graph_key": "bc5f53b27f6fd2d49bc4d98dd396dde8",
+ "graph_base": "http://ark.quellmoor.example/graph/s",
+ "graphs": 8,
+ "per_mille": 100,
+ "prefixes": [
+  ["http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/", "http://ark.quellmoor.example/def/"],
+  ["http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/", "http://ark.quellmoor.example/r/"],
+  ["http://purl.org/dc/elements/1.1/", "http://terms.fenwick-sill.example/meta/"],
+  ["http://purl.org/stuff/rev#", "http://terms.fenwick-sill.example/opinion#"],
+  ["http://xmlns.com/foaf/0.1/", "http://terms.fenwick-sill.example/party/"],
+  ["http://downlode.org/rdf/iso-3166/countries#", "http://geo.fenwick-sill.example/land#"]
+ ],
+ "hosts": [
+  ["http://www.Producer", ".com/", "http://maker", ".ark.quellmoor.example/"],
+  ["http://www.vendor", ".com/", "http://seller", ".ark.quellmoor.example/"]
+ ]
+}

@@ -2,243 +2,251 @@
  "full": {
   "F": 2861773,
   "cg_wall": {
-   "group:bi_q1": 7.13,
-   "group:bi_q2": 7.71,
-   "group:bi_q3": 9.28,
-   "group:bi_q4": 14.94,
-   "group:bi_q5": 4.81,
-   "group:bi_q6": 6.58,
-   "group:bi_q7": 2.37,
-   "group:bi_q8": 8.17,
-   "group:dh_d1": 1.77,
-   "group:dh_d2": 1.89,
-   "group:dh_d3": 2.0,
-   "group:dh_d4": 2.6,
-   "group:dh_d5": 1.86,
-   "group:dh_d6": 1.95,
-   "group:dh_d7": 3.82,
-   "group:dh_d8": 1.53,
-   "group:dh_d9": 65.8,
-   "group:explore_q1": 2.01,
-   "group:explore_q10": 2.4,
-   "group:explore_q11": 1.81,
-   "group:explore_q12": 1.79,
-   "group:explore_q2": 1.85,
-   "group:explore_q3": 1.95,
-   "group:explore_q4": 1.73,
-   "group:explore_q5": 2.27,
-   "group:explore_q7": 2.12,
-   "group:explore_q8": 2.16,
-   "load": 368.21
+   "group:hb_q1": 7.65,
+   "group:hb_q2": 20.67,
+   "group:hb_q3": 16.91,
+   "group:hb_q4": 13.16,
+   "group:hb_q5": 7.43,
+   "group:hb_q6": 4.42,
+   "group:hb_q7": 3.39,
+   "group:hb_q8": 6.17,
+   "group:hh_h01": 1.91,
+   "group:hh_h02": 34.35,
+   "group:hh_h03": 4.01,
+   "group:hh_h04": 2.06,
+   "group:hh_h05": 4.16,
+   "group:hh_h06": 7.26,
+   "group:hh_h07": 2.01,
+   "group:hh_h08": 1.59,
+   "group:hh_h09": 3.91,
+   "group:hh_h10": 1.89,
+   "group:hx_q1": 2.28,
+   "group:hx_q10": 2.96,
+   "group:hx_q11": 1.66,
+   "group:hx_q12": 1.66,
+   "group:hx_q2": 1.82,
+   "group:hx_q3": 2.19,
+   "group:hx_q4": 2.09,
+   "group:hx_q5": 2.68,
+   "group:hx_q7": 2.63,
+   "group:hx_q8": 2.36,
+   "load": 598.37
   },
-  "data_sha256": "7485dc55615cc46e0dda59aa7468a555fe3bcacf9fd95afe8b2f1039ceb9cae4",
+  "data_sha256": "7e744f4262ad81f541b2dd6c3710edd184f49c8ed79523e94295d219cdc27f49",
   "groups": {
-   "bi_q1": {
-    "cest": 249289290
+   "hb_q1": {
+    "cest": 481218943
    },
-   "bi_q2": {
-    "cest": 1343514720
+   "hb_q2": {
+    "cest": 2714971380
    },
-   "bi_q3": {
-    "cest": 781351958
+   "hb_q3": {
+    "cest": 1486548242
    },
-   "bi_q4": {
-    "cest": 1959032155
+   "hb_q4": {
+    "cest": 1164569572
    },
-   "bi_q5": {
-    "cest": 87067089
+   "hb_q5": {
+    "cest": 475727385
    },
-   "bi_q6": {
-    "cest": 305922143
+   "hb_q6": {
+    "cest": 190102922
    },
-   "bi_q7": {
-    "cest": 27790547
+   "hb_q7": {
+    "cest": 66783044
    },
-   "bi_q8": {
-    "cest": 338788212
+   "hb_q8": {
+    "cest": 355019586
    },
-   "dh_d1": {
-    "cest": 19661373
+   "hh_h01": {
+    "cest": 29972309
    },
-   "dh_d2": {
-    "cest": 24536792
+   "hh_h02": {
+    "cest": 2919521890
    },
-   "dh_d3": {
-    "cest": 18061286
+   "hh_h03": {
+    "cest": 218160882
    },
-   "dh_d4": {
-    "cest": 79543660
+   "hh_h04": {
+    "cest": 49746366
    },
-   "dh_d5": {
-    "cest": 27835267
+   "hh_h05": {
+    "cest": 268428198
    },
-   "dh_d6": {
-    "cest": 28051996
+   "hh_h06": {
+    "cest": 491420670
    },
-   "dh_d7": {
-    "cest": 121038959
+   "hh_h07": {
+    "cest": 69582779
    },
-   "dh_d8": {
-    "cest": 9259271
+   "hh_h08": {
+    "cest": 12777072
    },
-   "dh_d9": {
-    "cest": 11251395308
+   "hh_h09": {
+    "cest": 72629462
    },
-   "explore_q1": {
-    "cest": 23828313
+   "hh_h10": {
+    "cest": 28072730
    },
-   "explore_q10": {
-    "cest": 61007368
+   "hx_q1": {
+    "cest": 29560918
    },
-   "explore_q11": {
-    "cest": 13582437
+   "hx_q10": {
+    "cest": 110634186
    },
-   "explore_q12": {
-    "cest": 21213513
+   "hx_q11": {
+    "cest": 15179520
    },
-   "explore_q2": {
-    "cest": 49768119
+   "hx_q12": {
+    "cest": 20934307
    },
-   "explore_q3": {
-    "cest": 32752777
+   "hx_q2": {
+    "cest": 38401035
    },
-   "explore_q4": {
-    "cest": 39410549
+   "hx_q3": {
+    "cest": 45980003
    },
-   "explore_q5": {
-    "cest": 69189218
+   "hx_q4": {
+    "cest": 45717418
    },
-   "explore_q7": {
-    "cest": 60197748
+   "hx_q5": {
+    "cest": 111366666
    },
-   "explore_q8": {
-    "cest": 51426424
+   "hx_q7": {
+    "cest": 108691401
+   },
+   "hx_q8": {
+    "cest": 80769182
    }
   },
   "load": {
-   "cest": 42363733822,
-   "size": 92442624
+   "cest": 83069791553,
+   "size": 174321664
   },
   "native": {
-   "group:bi_q1": {
-    "cpu": 0.84,
-    "maxrss_kb": 74380
-   },
-   "group:bi_q2": {
+   "group:hb_q1": {
     "cpu": 0.32,
-    "maxrss_kb": 74380
+    "maxrss_kb": 17588
    },
-   "group:bi_q3": {
-    "cpu": 0.87,
-    "maxrss_kb": 74380
+   "group:hb_q2": {
+    "cpu": 0.44,
+    "maxrss_kb": 15964
    },
-   "group:bi_q4": {
-    "cpu": 1.37,
-    "maxrss_kb": 74380
+   "group:hb_q3": {
+    "cpu": 0.76,
+    "maxrss_kb": 15512
    },
-   "group:bi_q5": {
-    "cpu": 1.13,
-    "maxrss_kb": 74380
-   },
-   "group:bi_q6": {
-    "cpu": 0.68,
-    "maxrss_kb": 74380
-   },
-   "group:bi_q7": {
-    "cpu": 0.09,
-    "maxrss_kb": 1111540
-   },
-   "group:bi_q8": {
-    "cpu": 0.48,
-    "maxrss_kb": 1111540
-   },
-   "group:dh_d1": {
-    "cpu": 0.06,
-    "maxrss_kb": 1111540
-   },
-   "group:dh_d2": {
-    "cpu": 0.06,
-    "maxrss_kb": 1111540
-   },
-   "group:dh_d3": {
-    "cpu": 0.07,
-    "maxrss_kb": 1111540
-   },
-   "group:dh_d4": {
-    "cpu": 0.15,
-    "maxrss_kb": 1111540
-   },
-   "group:dh_d5": {
-    "cpu": 0.06,
-    "maxrss_kb": 1111540
-   },
-   "group:dh_d6": {
-    "cpu": 0.08,
-    "maxrss_kb": 1111540
-   },
-   "group:dh_d7": {
-    "cpu": 0.16,
-    "maxrss_kb": 1111540
-   },
-   "group:dh_d8": {
-    "cpu": 0.05,
-    "maxrss_kb": 1111540
-   },
-   "group:dh_d9": {
-    "cpu": 7.38,
-    "maxrss_kb": 1111540
-   },
-   "group:explore_q1": {
-    "cpu": 0.07,
-    "maxrss_kb": 1111540
-   },
-   "group:explore_q10": {
-    "cpu": 0.09,
-    "maxrss_kb": 1111540
-   },
-   "group:explore_q11": {
-    "cpu": 0.12,
-    "maxrss_kb": 1111540
-   },
-   "group:explore_q12": {
-    "cpu": 0.11,
-    "maxrss_kb": 1111540
-   },
-   "group:explore_q2": {
-    "cpu": 0.08,
-    "maxrss_kb": 1111540
-   },
-   "group:explore_q3": {
-    "cpu": 0.07,
-    "maxrss_kb": 1111540
-   },
-   "group:explore_q4": {
+   "group:hb_q4": {
     "cpu": 0.43,
-    "maxrss_kb": 1111540
+    "maxrss_kb": 18156
    },
-   "group:explore_q5": {
-    "cpu": 0.08,
-    "maxrss_kb": 1111540
+   "group:hb_q5": {
+    "cpu": 0.45,
+    "maxrss_kb": 16484
    },
-   "group:explore_q7": {
+   "group:hb_q6": {
     "cpu": 0.1,
-    "maxrss_kb": 1111540
+    "maxrss_kb": 17692
    },
-   "group:explore_q8": {
+   "group:hb_q7": {
+    "cpu": 0.05,
+    "maxrss_kb": 15604
+   },
+   "group:hb_q8": {
+    "cpu": 0.44,
+    "maxrss_kb": 15776
+   },
+   "group:hh_h01": {
+    "cpu": 0.02,
+    "maxrss_kb": 14316
+   },
+   "group:hh_h02": {
+    "cpu": 1.34,
+    "maxrss_kb": 19308
+   },
+   "group:hh_h03": {
+    "cpu": 0.05,
+    "maxrss_kb": 14512
+   },
+   "group:hh_h04": {
+    "cpu": 0.04,
+    "maxrss_kb": 15840
+   },
+   "group:hh_h05": {
+    "cpu": 0.13,
+    "maxrss_kb": 14716
+   },
+   "group:hh_h06": {
+    "cpu": 0.1,
+    "maxrss_kb": 17436
+   },
+   "group:hh_h07": {
+    "cpu": 0.03,
+    "maxrss_kb": 14244
+   },
+   "group:hh_h08": {
+    "cpu": 0.02,
+    "maxrss_kb": 13684
+   },
+   "group:hh_h09": {
+    "cpu": 0.3,
+    "maxrss_kb": 14824
+   },
+   "group:hh_h10": {
+    "cpu": 0.02,
+    "maxrss_kb": 15448
+   },
+   "group:hx_q1": {
+    "cpu": 0.02,
+    "maxrss_kb": 14708
+   },
+   "group:hx_q10": {
     "cpu": 0.06,
-    "maxrss_kb": 1111540
+    "maxrss_kb": 18020
+   },
+   "group:hx_q11": {
+    "cpu": 0.02,
+    "maxrss_kb": 13016
+   },
+   "group:hx_q12": {
+    "cpu": 0.02,
+    "maxrss_kb": 12752
+   },
+   "group:hx_q2": {
+    "cpu": 0.02,
+    "maxrss_kb": 15904
+   },
+   "group:hx_q3": {
+    "cpu": 0.02,
+    "maxrss_kb": 16304
+   },
+   "group:hx_q4": {
+    "cpu": 0.02,
+    "maxrss_kb": 14292
+   },
+   "group:hx_q5": {
+    "cpu": 0.04,
+    "maxrss_kb": 16608
+   },
+   "group:hx_q7": {
+    "cpu": 0.04,
+    "maxrss_kb": 16504
+   },
+   "group:hx_q8": {
+    "cpu": 0.03,
+    "maxrss_kb": 15788
    },
    "idgate:dump": {
-    "cpu": 62.4,
-    "maxrss_kb": 4389912
+    "cpu": 48.01,
+    "maxrss_kb": 4391124
    },
    "idgate:load": {
-    "cpu": 941.74,
-    "maxrss_kb": 2791136
+    "cpu": 1301.77,
+    "maxrss_kb": 2803520
    },
    "load": {
-    "cpu": 34.54,
-    "maxrss_kb": 411460
+    "cpu": 69.85,
+    "maxrss_kb": 729060
    }
   },
   "negative_syntax": [
@@ -349,6 +357,189 @@
    "rdf12/rdf-n-triples/syntax/ntriples12-bnode-bad-annotated-syntax-2.nt"
   ],
   "pristine_sha256": "09915cb256b767b935ee96d112c63ad813c7f65ff55c16343ebf3eec4e5b63e5",
+  "recorded_at": "2026-10-12 00:16:05",
+  "recorded_on": "GenuineIntel/6/85",
+  "submission_sha256": "aac70ce22094739e88c95de9ca98d04edad4dacda9295d9dc9868fba83aacab8",
+  "w3c": {
+   "https://w3c.github.io/rdf-tests/sparql/sparql10/manifest-evaluation.ttl": {
+    "passed": 269,
+    "total": 282
+   },
+   "https://w3c.github.io/rdf-tests/sparql/sparql10/manifest-syntax.ttl": {
+    "passed": 198,
+    "total": 199
+   },
+   "https://w3c.github.io/rdf-tests/sparql/sparql11/csv-tsv-res/manifest.ttl": {
+    "passed": 3,
+    "total": 6
+   },
+   "https://w3c.github.io/rdf-tests/sparql/sparql11/json-res/manifest.ttl": {
+    "passed": 4,
+    "total": 4
+   },
+   "https://w3c.github.io/rdf-tests/sparql/sparql11/manifest-sparql11-fed.ttl": {
+    "passed": 9,
+    "total": 10
+   },
+   "https://w3c.github.io/rdf-tests/sparql/sparql11/manifest-sparql11-query.ttl": {
+    "passed": 319,
+    "total": 328
+   },
+   "https://w3c.github.io/rdf-tests/sparql/sparql11/manifest-sparql11-update.ttl": {
+    "passed": 157,
+    "total": 157
+   },
+   "https://w3c.github.io/rdf-tests/sparql/sparql12/manifest.ttl": {
+    "passed": 251,
+    "total": 254
+   }
+  }
+ },
+ "quick": {
+  "F": 2861773,
+  "cg_wall": {
+   "group:quick_a": 1.91,
+   "group:quick_b": 2.58,
+   "load": 36.47
+  },
+  "data_sha256": "788aaad345e3bb30f65321bd9cebb1216fdbb87a403476a528c8c9a07b5811ea",
+  "groups": {
+   "quick_a": {
+    "cest": 207971317
+   },
+   "quick_b": {
+    "cest": 78044066
+   }
+  },
+  "load": {
+   "cest": 7935529230,
+   "size": 18460672
+  },
+  "native": {
+   "group:quick_a": {
+    "cpu": 0.11,
+    "maxrss_kb": 59920
+   },
+   "group:quick_b": {
+    "cpu": 0.24,
+    "maxrss_kb": 59920
+   },
+   "load": {
+    "cpu": 3.41,
+    "maxrss_kb": 127008
+   }
+  },
+  "negative_syntax": [
+   "rdf11/rdf-n-quads/nq-syntax-bad-literal-01.nq",
+   "rdf11/rdf-n-quads/nq-syntax-bad-literal-02.nq",
+   "rdf11/rdf-n-quads/nq-syntax-bad-literal-03.nq",
+   "rdf11/rdf-n-quads/nq-syntax-bad-quint-01.nq",
+   "rdf11/rdf-n-quads/nq-syntax-bad-uri-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-base-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-bnode-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-bnode-02.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-esc-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-esc-02.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-esc-03.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-lang-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-num-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-num-02.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-num-03.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-prefix-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-string-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-string-02.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-string-03.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-string-04.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-string-05.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-string-06.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-string-07.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-struct-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-struct-02.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-uri-01.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-uri-02.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-uri-03.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-uri-04.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-uri-05.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-uri-06.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-uri-07.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-uri-08.nq",
+   "rdf11/rdf-n-quads/nt-syntax-bad-uri-09.nq",
+   "rdf11/rdf-n-triples/nt-syntax-bad-base-01.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-bnode-01.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-bnode-02.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-esc-01.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-esc-02.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-esc-03.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-lang-01.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-num-01.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-num-02.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-num-03.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-prefix-01.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-string-01.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-string-02.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-string-03.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-string-04.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-string-05.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-string-06.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-string-07.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-struct-01.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-struct-02.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-uri-01.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-uri-02.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-uri-03.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-uri-04.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-uri-05.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-uri-06.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-uri-07.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-uri-08.nt",
+   "rdf11/rdf-n-triples/nt-syntax-bad-uri-09.nt",
+   "rdf12/rdf-n-quads/syntax/nquads-langdir-bad-1.nq",
+   "rdf12/rdf-n-quads/syntax/nquads-langdir-bad-2.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-reified-syntax-1.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-reified-syntax-2.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-reified-syntax-3.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-reified-syntax-4.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-01.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-02.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-03.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-04.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-05.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-06.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-07.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-08.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-09.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bad-syntax-10.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bnode-bad-annotated-syntax-1.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-bnode-bad-annotated-syntax-2.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-nested-bad-annotated-syntax-1.nq",
+   "rdf12/rdf-n-quads/syntax/nquads12-nested-bad-annotated-syntax-2.nq",
+   "rdf12/rdf-n-triples/syntax/ntriples-langdir-bad-1.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples-langdir-bad-2.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples-langdir-bad-3.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples-langdir-bad-4.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples-langdir-bad-5.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-iri-1.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-reified-syntax-1.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-reified-syntax-2.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-reified-syntax-3.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-reified-syntax-4.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-01.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-02.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-03.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-04.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-05.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-06.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-07.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-08.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-09.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bad-syntax-10.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bnode-bad-annotated-syntax-1.nt",
+   "rdf12/rdf-n-triples/syntax/ntriples12-bnode-bad-annotated-syntax-2.nt"
+  ],
+  "pristine_sha256": "09915cb256b767b935ee96d112c63ad813c7f65ff55c16343ebf3eec4e5b63e5",
+  "recorded_at": "2026-10-11 20:51:21",
+  "recorded_on": "AuthenticAMD/25/17",
+  "submission_sha256": "aac70ce22094739e88c95de9ca98d04edad4dacda9295d9dc9868fba83aacab8",
   "w3c": {
    "https://w3c.github.io/rdf-tests/sparql/sparql10/manifest-evaluation.ttl": {
     "passed": 269,

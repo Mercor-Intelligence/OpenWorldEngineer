@@ -20,7 +20,7 @@ RUN cd /opt && curl -fsSLO https://sourceware.org/pub/valgrind/valgrind-3.19.0.t
     && patch -p1 < /opt/vg-patches/vg-detrand.patch \
     && python3 /opt/vg-patches/vg-dettime.py && python3 /opt/vg-patches/vg-deturandom.py \
     && python3 /opt/vg-patches/vg-pinldcache.py \
-    && ./configure -q --prefix=/opt/valgrind && make -s -j8 >/dev/null && make -s install >/dev/null \
+    && CFLAGS=-g0 ./configure -q --prefix=/opt/valgrind && make -s -j8 >/dev/null && make -s install >/dev/null \
     && cd /opt && rm -rf valgrind-3.19.0 valgrind-3.19.0.tar.bz2 \
     && ln -s /opt/valgrind/bin/valgrind /usr/local/bin/valgrind \
     && ln -s /opt/valgrind/bin/cg_annotate /usr/local/bin/cg_annotate

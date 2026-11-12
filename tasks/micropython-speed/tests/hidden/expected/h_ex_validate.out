@@ -1,0 +1,5 @@
+0 26248 145 [('bad_age', 21), ('bad_code', 40), ('checked', 400), ('large', 18), ('miss', 106), ('noid', 28), ('seen', 400)]
+2 26905 145 [('bad_age', 19), ('bad_code', 38), ('checked', 400), ('large', 7), ('miss', 113), ('noid', 27), ('seen', 400)]
+4 28805 145 [('bad_age', 29), ('bad_code', 30), ('checked', 400), ('large', 11), ('miss', 92), ('noid', 26), ('seen', 400)]
+6 26584 145 [('bad_age', 14), ('bad_code', 41), ('checked', 400), ('large', 17), ('miss', 105), ('noid', 30), ('seen', 400)]
+acc 225797

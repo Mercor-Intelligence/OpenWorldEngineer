@@ -16,7 +16,7 @@ Public API
     ``etl_devkit.model.WorkloadParams`` overridden by the draws), ``contract`` (ContractParams dict),
     ``corners`` ({param: "lo"|"hi"} for corner draws), ``seeds`` (``generator``, ``encoder``,
     ``driver``, ``faults``, ``supervisor``, ``burst``, ``backfill_kill``), ``generator``
-    ("public"), ``backfill_kill_s`` (seconds after the first start at which a kill is injected
+    ("alt"|"public"), ``backfill_kill_s`` (seconds after the first start at which a kill is injected
     during catch-up, or None), ``to_dict()`` / ``from_dict()``, ``write(path)`` (0600 JSON), and
     ``workload_params() -> WorkloadParams``.
 ``draw_workload(ranges, rng, corner_p) -> (dict, corners)``; ``draw_contract(spec, rng) -> dict``.
@@ -144,7 +144,7 @@ def draw_params(profile: Profile, seed: int, *, generator: str | None = None) ->
         hi = max(10.0, min(180.0, timeout / 2.0))
         kill_s = round(kr.uniform(5.0, hi), 3)
     gen = generator or profile.generator
-    if gen != "public":
-        raise ValueError(f"generator must be 'public', not {gen!r}")
+    if gen not in ("alt", "public"):
+        raise ValueError(f"generator must be 'alt' or 'public', not {gen!r}")
     return RunParams(seed=int(seed), profile=profile.name, generator=gen, workload=wp, contract=contract,
                      corners=corners, seeds=seeds, backfill_kill_s=kill_s)
