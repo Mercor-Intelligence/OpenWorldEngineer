@@ -1,0 +1,6 @@
+{
+  "reflectance_oracle_skill": 0.39841780630295454,
+  "ndvi_oracle_skill": 0.4101836040040716,
+  "protocol": "marginal-crps-in-domain-normalized-v3-whole-date",
+  "oracle_terms_sha256": "4c09354949e52d3450e97b1c4ef2f515d4660ee9efe3b0693a6b7df33b5fe8fe"
+}

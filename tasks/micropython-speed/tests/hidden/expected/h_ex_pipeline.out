@@ -1,0 +1,5 @@
+0 517596 9976 2007
+  [('Corrupt', 48), ('Hard', 6), ('IndexError', 73), ('KeyError', 14), ('PipeError', 26), ('Soft', 8), ('ZeroDivisionError', 136)]
+1 523180 9615 1990
+  [('Corrupt', 73), ('Hard', 8), ('IndexError', 66), ('KeyError', 76), ('PipeError', 30), ('Soft', 75), ('ZeroDivisionError', 94)]
+checksum 419431

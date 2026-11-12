@@ -142,7 +142,7 @@ class RewardBoundary(unittest.TestCase):
         rep["G"] = float("nan")
         self.no_reward(rep)
         rep = passing()
-        rep["n_groups"] = {"bi_q1": 1.0}  # scored groups differ from the measured ones
+        rep["n_groups"] = {"hb_q1": 1.0}  # scored groups differ from the measured ones
         self.no_reward(rep)
 
     def test_status_record_and_malformed(self):

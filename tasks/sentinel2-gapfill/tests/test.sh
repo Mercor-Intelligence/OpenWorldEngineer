@@ -170,8 +170,8 @@ shard_count="$(
     tr -d '[:space:]'
 )"
 
-if [ "$shard_count" -ne 6 ]; then
-  infrastructure_failure "expected 6 test shards, found $shard_count"
+if [ "$shard_count" -ne 45 ]; then
+  infrastructure_failure "expected 45 test shards, found $shard_count"
 fi
 
 if ! python3 - <<'PY'

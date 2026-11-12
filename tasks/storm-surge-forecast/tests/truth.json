@@ -1,0 +1,43 @@
+{
+ "seed": 20261019,
+ "dx_km": 0.1,
+ "design_start_hours_since_epoch": 17059.0,
+ "design_start_utc": "2026-12-12T19:00",
+ "kappa": 0.55,
+ "stockdon": 0.35,
+ "skip_km": 0.8,
+ "chart_datum_below_national_m": 0.9,
+ "slope_at_points": {
+  "P01": 0.0505,
+  "P02": 0.0544,
+  "P03": 0.0567,
+  "P04": 0.0512,
+  "P05": 0.0344,
+  "P06": 0.0313,
+  "P07": 0.038,
+  "P08": 0.0433,
+  "P09": 0.0544,
+  "P10": 0.0628,
+  "P11": 0.0734,
+  "P12": 0.0869,
+  "P13": 0.104,
+  "P14": 0.12,
+  "P15": 0.12,
+  "P16": 0.12,
+  "P17": 0.1175,
+  "P18": 0.0917,
+  "P19": 0.0547,
+  "P20": 0.0513
+ },
+ "surf_gauges": [
+  "G7",
+  "G8"
+ ],
+ "storm2_true_wind_over_file": 1.15,
+ "station_height_factor": 0.9175955277597097,
+ "unreduced_line": "L5",
+ "g8_stuck_from_to_hours": [
+  42.5,
+  48.25
+ ]
+}

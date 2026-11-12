@@ -42,9 +42,10 @@ Phases driven from here (``main`` does setup, backfill, teardown and scoring):
 
   The p99 of the per-second hand-off lag p99 against ``driver_lag_p99_limit_ms`` (250 ms) and the
   judged time above that limit are reported only (``saturation.lag_p99_over_limit``, ``over_limit_s``,
-  ``over_limit_run_max_s``): Kafka produce latency alone can put that p99 above the limit while
-  essentially all of the scheduled events are delivered, and latency starts at the hand-off anyway
-  (A(T), CONTRACT 7). Grader-imposed broker outages and partition
+  ``over_limit_run_max_s``): in the Modal pilots, Kafka produce latency at 20k-28k events/s put that
+  p99 at 300-510 ms while 99.94-100.02% of the scheduled events were delivered, and the earlier rule
+  (p99 over the limit and sustained) judged those steps saturated;
+  latency starts at the hand-off anyway (A(T), CONTRACT 7). Grader-imposed broker outages and partition
   leadership moves are not charged to the submission (consistent with CONTRACT 7, where the latency
   already subtracts hold windows): driver_stats samples whose interval overlaps a
   ``kafka_broker_down`` or ``kafka_leader_move`` hold window, or the drain margin after
@@ -80,7 +81,13 @@ Phases driven from here (``main`` does setup, backfill, teardown and scoring):
   ``ramp.verifier_lag_stop_s`` (300 s), or exceeds ``ramp.verifier_lag_growth_min_s`` (120 s) and grew
   from the previous step's start to its end; the step SLOs come from the latency auditor and do not
   depend on the verifier, so stopping only gives the verifier time to drain before its final checks;
-  skipped without a verifier status), or ``disk_budget`` (the grader data volume has less than
+  skipped without a verifier status. When that rule fires, the step still starts if the verifier's
+  final drain can absorb it, ``verifier_lag_room``: the lag sampled before the step is at most
+  ``ramp.verifier_lag_max_s`` (900 s) and ``ramp.verifier_lag_drain_factor`` (2) x (lag + step) fits between
+  the end of the step and the verifier's drain deadline (the wall budget's deadline less
+  ``FINALIZE_RESERVE_S``, and at most ``verifier.drain_timeout_s`` after the step's end); the step record
+  then carries ``verifier_lag_continued`` and the run ``RampResult.lag_overrides``;
+  ``ramp.verifier_lag_max_s`` null keeps the stop), or ``disk_budget`` (the grader data volume has less than
   ``max(ramp.disk_min_free_bytes, ramp.disk_min_free_frac x its size)`` free: ``disk_budget_stop``;
   Kafka and the object store must never hit ENOSPC). ``RampResult.stop_detail`` says why.
 - **quiet** (``run_quiet``): the driver is paused, the final emitted LSN is read, and the
@@ -92,7 +99,9 @@ Step records (``steps.jsonl``, one line per step in k order, written once final)
 
     {k, rate, t0_us, t1_us, step_s, probe, completed, aborted, evaluated, passed, slo_passed (the
      latency auditor's verdict alone), reasons, verifier_lag_start_s (sampled before the step; None
-     without a verifier status), disk_free_bytes (grader data volume, before the step),
+     without a verifier status), [verifier_lag_continued (only when the verifier_lag rule fired before the
+     step and ``verifier_lag_room`` let it start: why the rule fired and the drain room)],
+     disk_free_bytes (grader data volume, before the step),
      p99_ms {output: ms|"inf"} (adjusted latency, CONTRACT 7: what the SLOs judge),
      raw_p99_ms {output: ms|"inf"} (V - commit_ts, reported), holds {n, total_s, open} (hold
      windows overlapping the step's evaluation span), slo_p99_ms, grader_saturated,
@@ -142,7 +151,11 @@ Public API
     reasons=("kafka_broker_down", "kafka_leader_move")) -> [{t0_us, t1_us, hold_end_us, hold_s, margin_s,
     open, reason}]``.
 ``verifier_lag_of(status) -> float | None``; ``verifier_lag_stop(lag_now, lag_prev_start, stop_s=300,
-    growth_min_s=120) -> str | None`` (the reason to stop, or None); ``disk_budget_stop(free_bytes,
+    growth_min_s=120) -> str | None`` (the reason to stop, or None); ``verifier_lag_room(lag_now, *, step_s, room_s,
+    max_s=900, drain_factor=2.0) -> (why_not | None, need_s)`` (why the final drain could not absorb one more step,
+    or None, and the drain time allowed for);
+    ``FINALIZE_RESERVE_S`` (180: ``main`` ends the verifier's final drain this long before the wall budget's
+    deadline); ``disk_budget_stop(free_bytes,
     total_bytes, min_bytes, min_frac) -> str | None``; ``allocated_bytes(paths) -> (bytes, {path: bytes})`` (``du``
     of the given directories); ``DiskMeter(roots, capacity_bytes, interval_s=60, log=None)``: ``.start()`` (one
     measurement now, then a daemon thread re-measures every ``interval_s``), ``.free() -> (capacity - latest
@@ -168,7 +181,8 @@ Public API
     unless the grader's source was saturated, so the ramp climbs to the grader's own limit; no retries;
     ``on_violation(kind, detail, evidence)``: called when a step's submission CPU time exceeds
     ``CPU_OVER_BUDGET_FACTOR`` x its vCPUs, the rule breach ``isolation.cpu_over_budget``): ``run() -> RampResult`` (``steps``, ``stop_reason``, ``stop_detail``, ``first_failed``,
-    ``probe``, ``grader_errors``), ``drain(timeout_s)``, ``steps`` (list of dicts); ``deadline`` is a
+    ``probe``, ``grader_errors``, ``strikes``, ``lag_overrides`` [{k, lag_s, why, need_s, room_s}]: the steps that
+    started although the verifier_lag rule fired), ``drain(timeout_s)``, ``steps`` (list of dicts); ``deadline`` is a
     ``time.monotonic()`` instant (see ``WallBudget``); ``faults_path`` (faults.jsonl) supplies the broker
     hold windows of the saturation check (else the executor's fault log, if any); ``verifier_status()``
     returns the verifier's status dict (may raise: the check is skipped for that step) and
@@ -202,8 +216,8 @@ _clock_us = now_us  # for functions whose ``now_us`` parameter shadows the clock
 __all__ = ["LockedDriver", "PublicationTracker", "DriverStats", "LoadSchedule", "Scheduler", "StepEvaluator", "Ramp",
            "RampResult", "WallBudget", "run_catchup", "run_quiet", "step_rates", "jsonable", "OUTPUT_IDENTS",
            "saturation_exclusions", "saturation_verdict", "delivery_end", "CpuMeter", "verifier_lag_of",
-           "verifier_lag_stop", "disk_budget_stop", "disk_usage", "allocated_bytes", "DiskMeter",
-           "UNBOUNDED_DISK_BYTES"]
+           "verifier_lag_stop", "verifier_lag_room", "FINALIZE_RESERVE_S", "disk_budget_stop", "disk_usage",
+           "allocated_bytes", "DiskMeter", "UNBOUNDED_DISK_BYTES"]
 
 OUTPUT_IDENTS = tuple(t.ident for t in C.OUTPUT_TABLES)
 # a step whose submission processes used more CPU time than this x its vCPUs broke the CPU limit (CONTRACT 11):
@@ -211,6 +225,9 @@ OUTPUT_IDENTS = tuple(t.ident for t in C.OUTPUT_TABLES)
 # e.g. gVisor), this is what enforces it; between 1.05x and this factor it is only a warning (report.cpu_warnings).
 CPU_OVER_BUDGET_FACTOR = 1.25
 CPU_OVER_BUDGET_KIND = "isolation.cpu_over_budget"
+# main caps the verifier's final drain (finalize timeout) this long before the wall budget's deadline; the
+# verifier_lag room check (verifier_lag_room) counts the drain room up to that point
+FINALIZE_RESERVE_S = 180.0
 
 
 def step_rates(r0: float, factor: float, n: int) -> list[float]:
@@ -676,8 +693,9 @@ def saturation_verdict(w: dict, delivery: dict | None = None, *, limit_ms: float
 
     The hand-off lag p99 against ``limit_ms`` is reported (``lag_p99_over_limit``) and is not a verdict.
     Latency starts at the hand-off (A(T), CONTRACT 7), so a late hand-off costs the submission nothing.
-    Kafka produce latency alone can put that p99 above the limit while essentially all of the load is
-    delivered. Without a complete delivery record, judged segments or lag evidence the basis is
+    In the Modal pilots a p99 of 300-500 ms, from Kafka produce latency at 20k-28k events/s, came with
+    99.94-100.02% of the load delivered, and the old p99 rule judged those steps grader-saturated
+. Without a complete delivery record, judged segments or lag evidence the basis is
     ``none`` (not saturated)."""
     ratio = seg_ratio = None
     if delivery and delivery.get("complete") and (delivery.get("expected") or 0) > 0:
@@ -752,6 +770,26 @@ def verifier_lag_stop(lag_now: float | None, lag_prev_start: float | None, *, st
     return None
 
 
+def verifier_lag_room(lag_now: float, *, step_s: float, room_s: float | None, max_s: float = 900.0,
+                      drain_factor: float = 2.0) -> tuple[str | None, float]:
+    """Whether the verifier's final drain can absorb one more step at this lag (asked only when
+    ``verifier_lag_stop`` fired): ``(why_not, need_s)``, ``why_not`` None when it can.
+
+    The lag is now - the verifier's processed watermark, and the watermark never moves back, so after one more
+    step of ``step_s`` it is at most ``lag_now + step_s`` (the verifier made no progress at all). ``need_s`` =
+    ``drain_factor`` x that bound is the drain time allowed for: it must fit in ``room_s``, the time from the end
+    of that step to the verifier's drain deadline (None: no deadline). ``lag_now`` (sampled before the step)
+    above ``max_s`` never continues: the oracle keeps the history of every transaction the verifier has not
+    checked yet, so the lag bounds the grader's memory."""
+    need = float(drain_factor) * (float(lag_now) + float(step_s))
+    if lag_now > max_s:
+        return f"the lag exceeds verifier_lag_max_s {max_s:.0f} s", need
+    if room_s is not None and need > room_s:
+        return (f"the final drain cannot absorb another step: {drain_factor:g} x ({lag_now:.0f} s + {step_s:.0f} s "
+                f"step) = {need:.0f} s > {max(0.0, room_s):.0f} s left for it"), need
+    return None, need
+
+
 def disk_budget_stop(free_bytes: int | None, total_bytes: int | None, *, min_bytes: float,
                      min_frac: float) -> str | None:
     """Why the ramp must not start another step because the grader data volume runs low, or None:
@@ -780,8 +818,8 @@ def disk_usage(paths) -> tuple[int, int] | None:
     return best
 
 
-# A statvfs size at or above this is no real capacity: some gVisor sandboxes report ~2^63 bytes (and as much
-# free) while enforcing a smaller quota on what the sandbox writes, so a statvfs-based disk_budget stop never fires
+# A statvfs size at or above this is no real capacity: Modal's gVisor sandboxes report ~2^63 bytes (and as much
+# free) while enforcing a 512 GiB quota on what the sandbox writes, so a statvfs-based disk_budget stop never fires
 # there and a full disk surfaces as ENOSPC in Kafka or the object store instead.
 UNBOUNDED_DISK_BYTES = 1 << 50
 
@@ -1167,6 +1205,8 @@ class RampResult:
     grader_errors: list = field(default_factory=list)
     stop_detail: str | None = None  # why a verifier_lag / disk_budget stop happened
     strikes: list = field(default_factory=list)  # struck steps (failed, skipped by R*)
+    # steps that started although the verifier_lag rule fired (verifier_lag_room): {k, lag_s, why, need_s, room_s}
+    lag_overrides: list = field(default_factory=list)
 
 
 class Ramp:
@@ -1221,6 +1261,13 @@ class Ramp:
         self._schedules: dict[int, LoadSchedule] = {}  # k -> the step's load schedule (the delivery check)
         self.verifier_lag_stop_s = float(r.get("verifier_lag_stop_s", 300.0))
         self.verifier_lag_growth_min_s = float(r.get("verifier_lag_growth_min_s", 120.0))
+        # when that rule fires, the step still starts if the final drain can absorb it (verifier_lag_room); None: the
+        # rule stops the ramp
+        vmax = r.get("verifier_lag_max_s", 900.0)
+        self.verifier_lag_max_s = None if vmax is None else float(vmax)
+        self.verifier_lag_drain_factor = float(r.get("verifier_lag_drain_factor", 2.0))
+        self.verifier_drain_timeout_s = float(profile.verifier.get("drain_timeout_s", 600))
+        self.lag_overrides: list[dict] = []
         self.disk_min_free_bytes = float(r.get("disk_min_free_bytes", 1 << 30))
         self.disk_min_free_frac = float(r.get("disk_min_free_frac", 0.0))
         self.step_retries = int(r.get("step_retries", 0))
@@ -1247,6 +1294,7 @@ class Ramp:
         self.first_failed: int | None = None
         self.grader_errors: list[str] = []
         self._lag_sample: dict[int, float | None] = {}  # k -> verifier lag (s) sampled just before step k
+        self._lag_continued: dict[int, str] = {}  # k -> why step k started although the verifier_lag rule fired
         self._disk_sample: dict[int, int] = {}  # k -> free bytes of the grader data volume before step k
 
     # ------------------------------------------------------------------ helpers
@@ -1494,6 +1542,7 @@ class Ramp:
                  "holds": None,
                  "slo_p99_ms": dict(self.slo), "grader_saturated": False, "driver_lag_p99_ms": None,
                  "slo_passed": None, "verifier_lag_start_s": self._lag_sample.get(k),
+                 **({"verifier_lag_continued": self._lag_continued[k]} if k in self._lag_continued else {}),
                  "disk_free_bytes": self._disk_sample.get(k),
                  "events": None, "txns": None, "faults": sched.kinds(),
                  "burst": {**{k2: res.get(k2) for k2 in ("segments", "min_mult", "max_mult")},
@@ -1563,7 +1612,7 @@ class Ramp:
         self._settle_pending_retry(stop_reason)
         probe = self.first_failed + 1 if self.first_failed is not None and len(self.steps) > self.first_failed + 1 else None
         return RampResult(self.steps, stop_reason, self.first_failed, probe, self.grader_errors, self.stop_detail,
-                          list(self.strikes))
+                          list(self.strikes), list(self.lag_overrides))
 
     def _settle_pending_retry(self, stop_reason: str) -> None:
         """A retry the ramp had no room for (requested, or due but never started): the first attempt's failure is
@@ -1578,8 +1627,11 @@ class Ramp:
         self._write_final_steps()
 
     def _room_check(self, k: int) -> tuple[str, str] | None:
-        """(stop_reason, detail) when step k must not start because the verifier fell behind or the grader
-        data volume runs low (see the module docstring), else None. Records the samples."""
+        """(stop_reason, detail) when step k must not start because the verifier fell behind (and its final drain
+        could not absorb another step) or the grader data volume runs low (see the module docstring), else None.
+        Records the samples, and a step that starts although the verifier_lag rule fired."""
+        override = None
+        self._lag_continued.pop(k, None)  # a retried step is judged again
         if self.verifier_status is not None:
             try:
                 lag = verifier_lag_of(self.verifier_status())
@@ -1590,7 +1642,15 @@ class Ramp:
             why = verifier_lag_stop(lag, self._lag_sample.get(k - 1), stop_s=self.verifier_lag_stop_s,
                                     growth_min_s=self.verifier_lag_growth_min_s)
             if why is not None:
-                return "verifier_lag", why
+                if self.verifier_lag_max_s is None:
+                    return "verifier_lag", why
+                room = self._drain_room_s()
+                why_not, need = verifier_lag_room(lag, step_s=self.step_s, room_s=room, max_s=self.verifier_lag_max_s,
+                                                  drain_factor=self.verifier_lag_drain_factor)
+                if why_not is not None:
+                    return "verifier_lag", f"{why}; {why_not}"
+                override = {"k": k, "lag_s": round(lag, 3), "why": why, "need_s": round(need, 1),
+                            "room_s": round(room, 1)}
         if self.disk_free is not None:
             try:
                 du = self.disk_free()
@@ -1602,7 +1662,26 @@ class Ramp:
                 why = disk_budget_stop(du[0], du[1], min_bytes=self.disk_min_free_bytes, min_frac=self.disk_min_free_frac)
                 if why is not None:
                     return "disk_budget", why
+        if override is not None:
+            detail = (f"{override['why']}; the final drain can absorb another step: "
+                      f"{self.verifier_lag_drain_factor:g} x ({override['lag_s']:.0f} s + {self.step_s:.0f} s step) = "
+                      f"{override['need_s']:.0f} s <= {override['room_s']:.0f} s left for it, lag <= "
+                      f"verifier_lag_max_s {self.verifier_lag_max_s:.0f} s")
+            self._lag_continued[k] = detail
+            self.lag_overrides.append(override)
+            self._log(f"ramp: step {k}: {detail}; going on")
         return None
+
+    def _drain_room_s(self) -> float:
+        """A lower bound on the seconds from the end of a step started now to the end of the verifier's final
+        drain. ``main`` caps the finalize call's drain at ``verifier.drain_timeout_s`` and at ``FINALIZE_RESERVE_S``
+        before the wall budget's deadline; the verifier also drains from the end of the last step through the
+        quiet phase, before that call. So the drain has at least min(``verifier.drain_timeout_s``, deadline -
+        ``FINALIZE_RESERVE_S`` - the step's end) after the step's end."""
+        room = self.verifier_drain_timeout_s
+        if self.deadline is not None:
+            room = min(room, self.deadline - FINALIZE_RESERVE_S - (time.monotonic() + self.step_s))
+        return room
 
     def drain(self, timeout_s: float, stop_early=None) -> bool:
         """Keep pumping until every scheduled evaluation has finished (or timeout)."""
